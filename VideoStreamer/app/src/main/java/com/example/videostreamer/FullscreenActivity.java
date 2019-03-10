@@ -30,6 +30,8 @@ public class FullscreenActivity extends Activity implements SurfaceHolder.Callba
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_fullscreen);
         vidSurface = (SurfaceView) findViewById(R.id.surfView);
         vidHolder = vidSurface.getHolder();
         vidHolder.addCallback(this);
