@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
+import android.net.Uri;
+import android.widget.MediaController;
+import android.widget.VideoView;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -37,7 +40,7 @@ public class FullscreenActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        /*super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_fullscreen);
 
@@ -57,7 +60,16 @@ public class FullscreenActivity extends AppCompatActivity {
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
-        findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
+        findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);*/
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        VideoView vidView = (VideoView)findViewById(R.id.myVideo);
+        String vidAddress = "https://archive.org/download/ksnn_compilation_master_the_internet/ksnn_compilation_master_the_internet_512kb.mp4";
+        Uri vidUri = Uri.parse(vidAddress);
+        vidView.setVideoURI(vidUri);
+        MediaController vidControl = new MediaController(this);
+        vidControl.setAnchorView(vidView);
+        vidView.setMediaController(vidControl);
     }
 
     @Override
