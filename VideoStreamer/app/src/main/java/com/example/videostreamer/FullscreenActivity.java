@@ -33,10 +33,12 @@ public class FullscreenActivity extends Activity implements SurfaceHolder.Callba
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fullscreen);
-        Intent mediaIntent = new Intent(Intent.ACTION_VIEW);
+        Intent mediaIntent = new Intent(Intent.ACTION_SEND);
         mediaIntent.setData(Uri.parse(vidAddress));
+
+        Intent chooser = Intent.createChooser(mediaIntent, "PICK SOMETHING");
         if (mediaIntent.resolveActivity(getPackageManager()) != null) {
-            startActivity(mediaIntent);
+            startActivity(chooser);
         }
         /*vidSurface = (SurfaceView) findViewById(R.id.surfView);
         vidHolder = vidSurface.getHolder();

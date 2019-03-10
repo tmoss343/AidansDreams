@@ -5,11 +5,15 @@
     android:layout_height="match_parent"
     android:background="#000000"
     tools:context=".FullscreenActivity" >
-
+    <!--<intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+        <data android:mimeType="video/*" />
+        <category android:name="android.intent.category.DEFAULT" />
+    </intent-filter>
     <VideoView
         android:id="@+id/surfView"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_centerInParent="true" />
+        android:layout_centerInParent="true" />-->
 
 </RelativeLayout>
