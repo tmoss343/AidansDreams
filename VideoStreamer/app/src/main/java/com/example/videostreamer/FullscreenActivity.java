@@ -45,9 +45,11 @@ public class FullscreenActivity extends AppCompatActivity {
         VideoView vidView = (VideoView)findViewById(R.id.myVideo);
         String vidAddress = "https://archive.org/download/ksnn_compilation_master_the_internet/ksnn_compilation_master_the_internet_512kb.mp4";
         Uri vidUri = Uri.parse(vidAddress);
-        vidView.setVideoURI(vidUri);
+
         MediaController vidControl = new MediaController(this);
         vidControl.setAnchorView(vidView);
         vidView.setMediaController(vidControl);
+        vidView.setVideoURI(vidUri);
+        vidView.start();
     }
 }
