@@ -16,6 +16,7 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnPreparedListener;
 import android.app.Activity;
+import android.content.Intent;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -32,7 +33,12 @@ public class FullscreenActivity extends Activity implements SurfaceHolder.Callba
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fullscreen);
-        vidSurface = (SurfaceView) findViewById(R.id.surfView);
+        Intent mediaIntent = new Intent(Intent.ACTION_VIEW);
+        mediaIntent.setData(Uri.parse(vidAddress));
+        if (mediaIntent.resolveActivity(getPackageManager()) != null) {
+            startActivity(mediaIntent);
+        }
+        /*vidSurface = (SurfaceView) findViewById(R.id.surfView);
         vidHolder = vidSurface.getHolder();
         vidHolder.addCallback(this);
         /*super.onCreate(savedInstanceState);
