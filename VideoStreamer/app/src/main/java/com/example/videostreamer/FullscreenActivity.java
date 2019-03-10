@@ -15,33 +15,20 @@ import android.widget.VideoView;
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class FullscreenActivity extends AppCompatActivity {
-    /**
-     * Whether or not the system UI should be auto-hidden after
-     * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
-     */
-    private static final boolean AUTO_HIDE = true;
+public class FullscreenActivity extends Activity implements SurfaceHolder.Callback, OnPreparedListener {
+    private MediaPlayer mediaPlayer;
+    private SurfaceHolder vidHolder;
+    private SurfaceView vidSurface;
+    String vidAddress = "https://archive.org/download/ksnn_compilation_master_the_internet/ksnn_compilation_master_the_internet_512kb.mp4";
 
-    /**
-     * If {@link #AUTO_HIDE} is set, the number of milliseconds to wait after
-     * user interaction before hiding the system UI.
-     */
-    private static final int AUTO_HIDE_DELAY_MILLIS = 3000;
-
-    /**
-     * Some older devices needs a small delay between UI widget updates
-     * and a change of the status and navigation bar.
-     */
-    private static final int UI_ANIMATION_DELAY = 300;
-
-    private View mContentView;
-    private View mControlsView;
-    private boolean mVisible;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fullscreen);
+        vidSurface = (SurfaceView) findViewById(R.id.surfView);
+        vidHolder = vidSurface.getHolder();
+        vidHolder.addCallback(this);
+        /*super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
         VideoView vidView = (VideoView)findViewById(R.id.myVideo);
         String vidAddress = "https://archive.org/download/ksnn_compilation_master_the_internet/ksnn_compilation_master_the_internet_512kb.mp4";
         Uri vidUri = Uri.parse(vidAddress);
@@ -50,6 +37,36 @@ public class FullscreenActivity extends AppCompatActivity {
         vidControl.setAnchorView(vidView);
         vidView.setMediaController(vidControl);
         vidView.setVideoURI(vidUri);
-        vidView.start();
+        vidView.start();*/
+    }
+
+    @Override
+    public void surfaceChanged(SurfaceHolder arg0, int arg1, int arg2, int arg3) {
+        // TODO Auto-generated method stub
+    }
+    
+    @Override
+    public void surfaceCreated(SurfaceHolder arg0) {
+        try {
+            mediaPlayer = new MediaPlayer();
+            mediaPlayer.setDisplay(vidHolder);
+            mediaPlayer.setDataSource(vidAddress);
+            mediaPlayer.prepare();
+            mediaPlayer.setOnPreparedListener(this);
+            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        } 
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    
+    @Override
+    public void surfaceDestroyed(SurfaceHolder arg0) {
+        // TODO Auto-generated method stub
+    }
+    
+    @Override
+    public void onPrepared(MediaPlayer mp) {   	
+        mediaPlayer.start();
     }
 }
