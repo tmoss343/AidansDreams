@@ -10,6 +10,8 @@ import android.view.View;
 import android.net.Uri;
 import android.widget.MediaController;
 import android.widget.VideoView;
+import android.view.SurfaceHolder.Callback;
+import android.media.MediaPlayer.OnPreparedListener;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -41,11 +43,6 @@ public class FullscreenActivity extends Activity implements SurfaceHolder.Callba
     }
 
     @Override
-    public void surfaceChanged(SurfaceHolder arg0, int arg1, int arg2, int arg3) {
-        // TODO Auto-generated method stub
-    }
-    
-    @Override
     public void surfaceCreated(SurfaceHolder arg0) {
         try {
             mediaPlayer = new MediaPlayer();
@@ -54,19 +51,14 @@ public class FullscreenActivity extends Activity implements SurfaceHolder.Callba
             mediaPlayer.prepare();
             mediaPlayer.setOnPreparedListener(this);
             mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-        } 
+        }
         catch(Exception e){
             e.printStackTrace();
         }
     }
-    
+
     @Override
-    public void surfaceDestroyed(SurfaceHolder arg0) {
-        // TODO Auto-generated method stub
-    }
-    
-    @Override
-    public void onPrepared(MediaPlayer mp) {   	
+    public void onPrepared(MediaPlayer mp) {
         mediaPlayer.start();
     }
 }
